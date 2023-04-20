@@ -21,6 +21,7 @@ import { useState } from "react";
 import { addToCart } from "../../app/redux/slices/cartSlice";
 import RightDrawer from "../../shared/Drawer/rightDrawer";
 import Cart from "../cart";
+import { useMediaQuery } from "react-responsive";
 
 const useStyles: any = makeStyles({
   icons: {
@@ -51,6 +52,9 @@ const Icons = [
 ];
 
 const ShopItem = () => {
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+  
   const { number } = useParams();
   const itemsData = useSelector(selectItems);
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
@@ -130,7 +134,7 @@ const ShopItem = () => {
           <Typography variant="body1" component="div" mt={3} mb={3}>
             ${currentItem?.price}.00
           </Typography>
-          <Box width="25%" margin="15px 0">
+          <Box width={isSmallScreen ? "40%" :"25%"} margin="15px 0">
             {" "}
             <TextField
               id="outlined-number"

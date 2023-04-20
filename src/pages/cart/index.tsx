@@ -1,13 +1,6 @@
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import CloseIcon from "@mui/icons-material/Close";
-import { makeStyles } from "@mui/styles";
+import { useNavigate } from "react-router";
 import { ICartItem, IItem } from "../../app/redux/interface";
 import {
   addToCart,
@@ -16,80 +9,15 @@ import {
   clearCart,
   selectCartItems,
 } from "../../app/redux/slices/cartSlice";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router";
 
-const useStyles: any = makeStyles({
-  itemDetail: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  bigBox: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  smallImageBox: {
-    width: "80px",
-    height: "80px",
-    border: "0.8px solid grey",
-  },
-  smallImageBoxDrawer: {
-    width: "90px",
-    height: "90px",
-  },
-  leftText: {
-    marginLeft: "20px",
-  },
-  counterBox: {
-    border: "0.8px solid grey",
-    width: "30%",
-    height: "30px",
-    margin: " 5px",
-    display: "flex",
-    justifyContent: "space-around",
-    padding: "2px",
-  },
-  counterBoxDrawer: {
-    border: "0.8px solid grey",
-    width: "70px",
-    height: "30px",
-    margin: " 5px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-    fontSize: "15px",
-  },
-  subtotal: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  leftSecondBox: {
-    display: "flex",
-    flexDirection: "row",
-    width: "50%",
-    justifyContent: "space-between",
-  },
-  circleClose: {
-    border: "1px solid grey",
-    borderRadius: "50px",
-    width: "20px",
-    height: "20px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "12px",
-  },
-  cartDrawerFooter: {
-    marginBottom: "15px",
-  },
-  clearCart: {
-    display: "flex",
-    justifyContent: "end",
-    margin: "20px",
-  },
-});
 
 interface ICartComponent {
   isDrawer?: boolean;
@@ -98,7 +26,6 @@ interface ICartComponent {
 const Cart = ({ isDrawer }: ICartComponent) => {
   const navigate = useNavigate();
   const cartItemsData = useSelector(selectCartItems);
-  const classes = useStyles();
 
   const dispatch = useDispatch();
   const [isCartDrawer, setCartDrawer] = useState<boolean | undefined>(isDrawer);
@@ -128,7 +55,10 @@ const Cart = ({ isDrawer }: ICartComponent) => {
   const navigateToCart = () => {
     return navigate("/cart");
   };
-  
+
+  const navigateToShop = () => {
+    return navigate("/shop");
+  };
   const totalAmount = useMemo(() => {
     const totalSum = cartItemsData.map((i: ICartItem) => {
       return i.itemQuantity * i.price;
@@ -160,7 +90,14 @@ const Cart = ({ isDrawer }: ICartComponent) => {
       {cartItemsData.length ? (
         <>
           {" "}
-          <Box className={classes.clearCart} onClick={handleClearCart}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "end",
+              margin: "20px",
+            }}
+            onClick={handleClearCart}
+          >
             {" "}
             <Typography variant="body2">
               Clear All <CloseIcon fontSize="inherit" />
@@ -181,23 +118,46 @@ const Cart = ({ isDrawer }: ICartComponent) => {
 
               {cartItemsData.length
                 ? cartItemsData.map((i: ICartItem) => (
-                    <Box className={classes.bigBox} key={i.id}>
-                      {isCartDrawer ? (
+                    <Box
+                      sx={{ display: "flex", flexDirection: "column" }}
+                      key={i.id}
+                    >
+                      {isCartDrawer ?
+                       (
                         <Box
                           onMouseOver={handleMouseOver}
                           onMouseOut={handleMouseOut}
                           key={i.id}
                         >
-                          <Box className={classes.itemDetail}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                            }}
+                          >
                             <Box>
                               <img
                                 src={i.src}
                                 alt="item"
-                                className={classes.smallImageBoxDrawer}
+                                style={{
+                                  width: "90px",
+                                  height: "90px",
+                                }}
                               />
                             </Box>
-                            <Box className={classes.leftSecondBox}>
-                              <Box className={classes.leftText}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "50%",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  marginLeft: "20px",
+                                }}
+                              >
                                 <Typography variant="body1" component="div">
                                   EZ 0000{i.id}
                                 </Typography>
@@ -206,7 +166,18 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                                   ${i.price}.00
                                 </Typography>
 
-                                <Box className={classes.counterBoxDrawer}>
+                                <Box
+                                  sx={{
+                                    border: "0.8px solid grey",
+                                    width: "70px",
+                                    height: "30px",
+                                    margin: " 5px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-around",
+                                    fontSize: "15px",
+                                  }}
+                                >
                                   {" "}
                                   <RemoveIcon
                                     fontSize="inherit"
@@ -223,8 +194,17 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                             {isHovering && (
                               <Box
                                 mt={1}
-                                ml={3}
-                                className={classes.circleClose}
+                                ml={1.5}
+                                sx={{
+                                  border: "1px solid grey",
+                                  borderRadius: "50px",
+                                  width: "20px",
+                                  height: "20px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontSize: "12px",
+                                }}
                               >
                                 <CloseIcon
                                   fontSize="inherit"
@@ -242,16 +222,36 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                           <Box width="100%" mt={2} mb={3}>
                             <Divider />
                           </Box>
-                          <Box className={classes.itemDetail}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                            }}
+                          >
                             <Box>
                               <img
                                 src={i.src}
                                 alt="item"
-                                className={classes.smallImageBox}
+                                style={{
+                                  width: "80px",
+                                  height: "80px",
+                                  border: "0.8px solid grey",
+                                }}
                               />
                             </Box>
-                            <Box className={classes.leftSecondBox}>
-                              <Box className={classes.leftText}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "50%",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  marginLeft: "20px",
+                                }}
+                              >
                                 <Typography variant="body1" component="div">
                                   EZ 0000{i.id}
                                 </Typography>
@@ -264,7 +264,17 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                                   ${i.price}.00
                                 </Typography>
                               </Box>
-                              <Box className={classes.counterBox}>
+                              <Box
+                                sx={{
+                                  border: "0.8px solid grey",
+                                  width: "30%",
+                                  height: "30px",
+                                  margin: " 5px",
+                                  display: "flex",
+                                  justifyContent: "space-around",
+                                  padding: "2px",
+                                }}
+                              >
                                 {" "}
                                 <RemoveIcon
                                   fontSize="small"
@@ -308,8 +318,13 @@ const Cart = ({ isDrawer }: ICartComponent) => {
               xs={12}
               mt={2}
             >
-              {isCartDrawer ? (
-                <Box className={classes.cartDrawerFooter}>
+              {isCartDrawer ? 
+              (
+                <Box
+                  sx={{
+                    marginBottom: "15px",
+                  }}
+                >
                   {/* <Divider />
                   <Box mt={1} className={classes.subtotal}>
                     <Typography variant="body1" component="div" mb={2}>
@@ -329,7 +344,15 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                     </Typography>
                   </Box>
                   <Divider /> */}
-                  <Box className={classes.subtotal} mt={1} mb={1}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                    mt={1}
+                    mb={1}
+                  >
                     <Typography variant="h6" component="div">
                       Total
                     </Typography>
@@ -381,18 +404,26 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                     </Typography>
                   </Box> */}
                   <Divider />
-                  <Box mt={3} mb={2} className={classes.subtotal}>
+                  <Box
+                    mt={3}
+                    mb={2}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
                     <Typography variant="h6" component="div">
                       Total
                     </Typography>
                     <Typography variant="h6" component="div">
-                    ${totalAmount}.00
+                      ${totalAmount}.00
                     </Typography>
                   </Box>
                   <Button
                     variant="contained"
                     fullWidth
-                    style={{
+                    sx={{
                       background: "#44DBBD",
                       color: "white",
                     }}
@@ -405,15 +436,23 @@ const Cart = ({ isDrawer }: ICartComponent) => {
           </Grid>
         </>
       ) : (
-        <Typography
-          variant="h5"
-          component="div"
-          mt={5}
-          ml={"14%"}
-          height="300px"
-        >
-          Cart is empty
-        </Typography>
+        <Box sx={{ width: "270px", margin: "5%", right:"0"}}>
+          <Typography variant="h5" component="div" mb={3} ml={isCartDrawer? 8 :0}>
+            Cart is empty
+          </Typography>
+          {!isCartDrawer? <Button
+            onClick={navigateToShop}
+            variant="contained"
+            fullWidth
+            sx={{
+              background: "#44DBBD",
+              color: "white",
+            }}
+          >
+            Go to Shop
+          </Button>: null}
+         
+        </Box>
       )}
     </>
   );

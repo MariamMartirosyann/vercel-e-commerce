@@ -42,7 +42,7 @@ const RightDrawer = ({
   const isSmallScreen = useMediaQuery({ query: "(max-width: 699px)" });
 
   const SIDEBAR_WIDTH = 600;
-  const SIDEBAR_WIDTH_SMALL = 400;
+  const SIDEBAR_WIDTH_SMALL = 350;
   return (
     <Drawer anchor={"right"} open={open} onClose={handleClose}>
       <Box width={isSmallScreen ?SIDEBAR_WIDTH_SMALL:SIDEBAR_WIDTH}>
