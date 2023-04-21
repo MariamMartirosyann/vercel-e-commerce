@@ -59,6 +59,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
   const navigateToShop = () => {
     return navigate("/shop");
   };
+  
   const totalAmount = useMemo(() => {
     const totalSum = cartItemsData.map((i: ICartItem) => {
       return i.itemQuantity * i.price;
@@ -68,23 +69,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
     return sum;
   }, [cartItemsData]);
 
-  const totalDiscount = useMemo(() => {
-    const totalSum = cartItemsData.map((i: ICartItem) => {
-      const total = i.itemQuantity * i.price;
-      if (total > 2000) {
-        return total * 0.1;
-      }
-      return;
-    });
-
-    const sum = totalSum?.reduce((a: any, b: any) => a + b, 0);
-
-    return sum;
-  }, [cartItemsData]);
-
-  const totalAmountWithDiscount = totalDiscount
-    ? totalAmount - totalDiscount
-    : totalAmount;
+  
   return (
     <>
       {cartItemsData.length ? (
@@ -291,11 +276,6 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                               <Typography variant="body1" component="div">
                                 <>${i.price * i.itemQuantity}.00 </>
                               </Typography>
-                              {/* <Typography variant="body1" component="div">
-                                {i.price * i.itemQuantity > 2000
-                                  ? ` -$ ${i.price * i.itemQuantity * 0.1}`
-                                  : null}
-                              </Typography> */}
                             </Box>
                             <Box mt={1} ml={3}>
                               <CloseIcon
@@ -325,25 +305,6 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                     marginBottom: "15px",
                   }}
                 >
-                  {/* <Divider />
-                  <Box mt={1} className={classes.subtotal}>
-                    <Typography variant="body1" component="div" mb={2}>
-                      Subtotal
-                    </Typography>
-                    <Typography variant="body1" component="div" mb={2}>
-                      ${totalAmount}.00
-                    </Typography>
-                  </Box>
-
-                  <Box className={classes.subtotal}>
-                    <Typography variant="body2" component="div" mb={2}>
-                      Discount
-                    </Typography>
-                    <Typography variant="body2" component="div" mb={2}>
-                      ${!isNaN(totalDiscount) ? totalDiscount : 0}.00
-                    </Typography>
-                  </Box>
-                  <Divider /> */}
                   <Box
                     sx={{
                       display: "flex",
@@ -356,13 +317,6 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                     <Typography variant="h6" component="div">
                       Total
                     </Typography>
-                    {/* <Typography variant="h6" component="div">
-                      $
-                      {totalDiscount
-                        ? totalAmount - totalDiscount
-                        : totalAmount}
-                      .00
-                    </Typography> */}
                     <Typography variant="h6" component="div">
                       ${totalAmount}.00
                     </Typography>
@@ -386,23 +340,6 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                   <Typography variant="h6" component="div" mb={2}>
                     Order summary
                   </Typography>
-                  {/* <Divider />
-                  <Box mt={3} className={classes.subtotal}>
-                    <Typography variant="body1" component="div" mb={2}>
-                      Subtotal
-                    </Typography>
-                    <Typography variant="body1" component="div" mb={2}>
-                      ${totalAmount}.00
-                    </Typography>
-                  </Box>
-                  <Box className={classes.subtotal}>
-                    <Typography variant="body2" component="div" mb={2}>
-                      Discount
-                    </Typography>
-                    <Typography variant="body2" component="div" mb={2}>
-                      ${!isNaN(totalDiscount) ? totalDiscount : 0}.00
-                    </Typography>
-                  </Box> */}
                   <Divider />
                   <Box
                     mt={3}
@@ -436,7 +373,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
           </Grid>
         </>
       ) : (
-        <Box sx={{ width: "270px", margin: "5%", right:"0"}}>
+        <Box sx={{ width: "270px", margin: "8%", right:"0"}}>
           <Typography variant="h5" component="div" mb={3} ml={isCartDrawer? 8 :0}>
             Cart is empty
           </Typography>
