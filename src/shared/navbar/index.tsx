@@ -1,3 +1,6 @@
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,12 +15,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import { ERoutes } from "../../routes/constants";
-import { useMemo, useState } from "react";
 import Badge from "@mui/material/Badge";
+import { ERoutes } from "../../routes/constants";
 import { selectCartItems } from "../../app/redux/slices/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { ICartItem } from "../../app/redux/interface";
 
 interface Props {
@@ -28,9 +28,8 @@ const drawerWidth = 240;
 
 const navItems = [
   { text: "Home", path: ERoutes.HOME, haseBadge: false },
-  { text: "Support", path: ERoutes.SUPPORT, haseBadge: false },
   { text: "Shop", path: ERoutes.SHOP, haseBadge: false },
-  { text: "Carttttt", path: ERoutes.CART, haseBadge: true },
+  { text: "Cart", path: ERoutes.CART, haseBadge: true },
 ];
 
 export default function DrawerAppBar(props: Props) {

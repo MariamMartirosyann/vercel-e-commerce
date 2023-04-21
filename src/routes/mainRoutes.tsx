@@ -4,7 +4,7 @@ import Cart from "../pages/cart";
 import Home from "../pages/home";
 import Shop from "../pages/shop";
 import ShopItem from "../pages/shopItem";
-import Support from "../pages/support";
+
 
 import { ERoutes } from "./constants";
 
@@ -17,10 +17,7 @@ const MainRoutes = [
         path: ERoutes.HOME,
         element: <Home />,
       },
-      {
-        path: ERoutes.SUPPORT,
-        element: <Support />,
-      },
+  
       {
         path: ERoutes.SHOP,
         element: <Shop />,

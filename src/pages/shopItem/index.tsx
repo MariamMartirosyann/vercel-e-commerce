@@ -1,13 +1,8 @@
-import { useParams } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Grid,
-  SvgIconTypeMap,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { useParams } from "react-router-dom";
+import { Box, Button, Grid, SvgIconTypeMap, Typography } from "@mui/material";
 import { selectItems } from "../../app/redux/slices/ItemSlice";
 import { IItem } from "../../app/redux/interface";
 import ItemAccordion from "./accardion";
@@ -16,25 +11,10 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-import { makeStyles } from "@mui/styles";
-import { useState } from "react";
 import { addToCart } from "../../app/redux/slices/cartSlice";
 import RightDrawer from "../../shared/Drawer/rightDrawer";
 import Cart from "../cart";
-import { useMediaQuery } from "react-responsive";
 
-const useStyles: any = makeStyles({
-  icons: {
-    display: "flex",
-    flexDirection: "row",
-    margin: "20px 12px",
-  },
-  smallImageBox: {
-    width: "80px",
-    height: "80px",
-    border: "0.8px solid grey",
-  },
-});
 
 interface IIcons {
   id: number;
@@ -52,16 +32,14 @@ const Icons = [
 ];
 
 const ShopItem = () => {
+  const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
 
-  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
-  
   const { number } = useParams();
   const itemsData = useSelector(selectItems);
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-  const classes = useStyles();
   const dispatch = useDispatch();
-  const currentItem:IItem | undefined= itemsData?.find(
+  const currentItem: IItem | undefined = itemsData?.find(
     (item: IItem) => item.id === Number(number)
   );
 
@@ -76,13 +54,11 @@ const ShopItem = () => {
       image === currentItem?.src ? currentItem?.srcHover : currentItem?.src
     );
   };
- 
 
-  const handleAddToCart = (currentItem:IItem |undefined) => {
+  const handleAddToCart = (currentItem: IItem | undefined) => {
     setDrawerOpen(true);
     dispatch(addToCart(currentItem));
   };
-
 
   const handleCloseCartDrawer = () => {
     setDrawerOpen(false);
@@ -104,7 +80,7 @@ const ShopItem = () => {
               display: "flex",
               flexDirection: "row",
               width: "100%",
-              margin: "3% 5%",
+              margin:`${isMediumScreen ? "3% 0" : "3% 5%"}` ,
             }}
           >
             {Images.map((i: any) => (
@@ -113,7 +89,11 @@ const ShopItem = () => {
                 <img
                   src={i?.src}
                   alt="item"
-                  className={classes.smallImageBox}
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    border: "0.8px solid grey",
+                  }}
                 />
               </Box>
             ))}
@@ -134,23 +114,9 @@ const ShopItem = () => {
           <Typography variant="body1" component="div" mt={3} mb={3}>
             ${currentItem?.price}.00
           </Typography>
-          <Box width={isSmallScreen ? "40%" :"25%"} margin="15px 0">
-            {" "}
-            <TextField
-              id="outlined-number"
-              label="Quantity"
-              type="number"
-              defaultValue={1}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              InputProps={{ inputProps: { min: 1 } }}
-            />
-          </Box>
 
           <Button
-            onClick={() => handleAddToCart( currentItem )}
+            onClick={() => handleAddToCart(currentItem)}
             variant="contained"
             fullWidth
             style={{
@@ -173,7 +139,13 @@ const ShopItem = () => {
             Buy Now
           </Button>
           <ItemAccordion />
-          <Box className={classes.icons}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              margin: "20px 12px",
+            }}
+          >
             {" "}
             {Icons.map((i: IIcons) => (
               <Box mr={1.5} key={i.id}>
