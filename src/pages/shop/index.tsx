@@ -18,6 +18,8 @@ const Shop = () => {
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
+  const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   const showCartHandler = (i: number) => {
     setHoveredCart(i);
@@ -64,12 +66,14 @@ const Shop = () => {
           </Typography>
         </Box>
       </Box>
+      
       <Grid
         container
-        spacing={5}
-        width="80%"
+        spacing={!isMediumScreen ? 5 :0}
+       
         sx={{
           margin: "5px auto",
+           width:`${isSmallScreen ? "100% " :"80%"}`
         }}
       >
         {items.map((i: IItem) => (
@@ -83,7 +87,7 @@ const Shop = () => {
           >
             <Box
               sx={{
-                width: "70%",
+                width: `${isSmallScreen ? "85% " :"70%"}`,
                 margin: "5px auto",
               }}
             >
@@ -150,7 +154,7 @@ const Shop = () => {
             </Box>
           </Grid>
         ))}
-        <Grid item></Grid>
+        
       </Grid>
       <RightDrawer
         open={isDrawerOpen}

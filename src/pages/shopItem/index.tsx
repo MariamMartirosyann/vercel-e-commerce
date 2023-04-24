@@ -32,6 +32,7 @@ const Icons = [
 ];
 
 const ShopItem = () => {
+
   const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
 
   const { number } = useParams();
@@ -65,7 +66,7 @@ const ShopItem = () => {
   };
   return (
     <>
-      <Grid container margin="3% auto" width="70%" spacing={4}>
+      <Grid container margin="3% auto" width="70%" spacing={!isMediumScreen ? 4 :0}>
         <Grid item lg={6} md={6} xs={12}>
           <Box width="100%" border="1px solid grey">
             <img
@@ -81,10 +82,12 @@ const ShopItem = () => {
               flexDirection: "row",
               width: "100%",
               margin:`${isMediumScreen ? "3% 0" : "3% 5%"}` ,
+              justifyContent:`${isMediumScreen ? "center" : null}`
             }}
           >
             {Images.map((i: any) => (
               <Box key={i.id} mr={2} onClick={handleChangeImage}>
+                
                 {" "}
                 <img
                   src={i?.src}
