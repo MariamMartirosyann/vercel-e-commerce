@@ -17,6 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
+import { useMediaQuery } from "react-responsive";
 
 
 interface ICartComponent {
@@ -27,6 +28,8 @@ const Cart = ({ isDrawer }: ICartComponent) => {
   
   const navigate = useNavigate();
   const cartItemsData = useSelector(selectCartItems);
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   const dispatch = useDispatch();
   const [isCartDrawer, setCartDrawer] = useState<boolean | undefined>(isDrawer);
@@ -89,7 +92,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
               Clear All <CloseIcon fontSize="inherit" />
             </Typography>{" "}
           </Box>
-          <Grid container sx={{ width: "80%", margin: "1% auto" }} spacing={5}>
+          <Grid container sx={{ width: "80%", margin: `${isSmallScreen ? " 1% 0px" : "1% auto" }` }} spacing={5}>
             <Grid
               item
               lg={isCartDrawer ? 12 : 8}
@@ -219,7 +222,7 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                                 src={i.src}
                                 alt="item"
                                 style={{
-                                  width: "80px",
+                                  width:`${isSmallScreen ? "70px " :"80px"}` ,
                                   height: "80px",
                                   border: "0.8px solid grey",
                                 }}
@@ -228,17 +231,20 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                             <Box
                               sx={{
                                 display: "flex",
-                                flexDirection: "row",
-                                width: "50%",
+                                flexDirection: `${isSmallScreen ?" column":"row" }`,
+                                width:`${isSmallScreen ?"45%":"50%" }` ,
                                 justifyContent: "space-between",
+                                marginLeft:`${isSmallScreen ?"7px":null }`
                               }}
+                              
                             >
+                
                               <Box
                                 sx={{
                                   marginLeft: "20px",
                                 }}
                               >
-                                <Typography variant="body1" component="div">
+                                <Typography variant={isSmallScreen? "body2":"body1"} component="div">
                                   EZ 0000{i.id}
                                 </Typography>
 
@@ -253,37 +259,46 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                               <Box
                                 sx={{
                                   border: "0.8px solid grey",
-                                  width: "30%",
-                                  height: "30px",
+                                  width:`${isSmallScreen ?"75px":"100px" }` ,
+                                  height:`${isSmallScreen ?"25px":"30px" }` ,
                                   margin: " 5px",
                                   display: "flex",
                                   justifyContent: "space-around",
                                   padding: "2px",
+                                  fontSize:`${isSmallScreen ?"14px": null}`
                                 }}
                               >
                                 {" "}
                                 <RemoveIcon
-                                  fontSize="small"
+                                  fontSize= {isSmallScreen ?"inherit": "small"}
                                   onClick={() => handleDecreaseCart(i)}
                                 />{" "}
                                 {i.itemQuantity}
                                 <AddIcon
-                                  fontSize="small"
+                                  fontSize={isSmallScreen ?"inherit": "small"}
                                   onClick={() => handleAddToCart(i)}
                                 />
                               </Box>
+                           
                             </Box>
+
+                            <Box sx={{display:"flex", flexDirection:`${isSmallScreen ?"column-reverse":"row" }`,justifyContent:`${isSmallScreen ?"start":null }`}}>
                             <Box mt={1} ml={4}>
-                              <Typography variant="body1" component="div">
+                              <Typography variant={isSmallScreen? "body2":"body1"} component="div">
                                 <>${i.price * i.itemQuantity}.00 </>
                               </Typography>
                             </Box>
-                            <Box mt={1} ml={3}>
-                              <CloseIcon
+
+                            <Box  ml={3}sx={{marginTop:`${!isSmallScreen ?"8px":null }`,display:"flex", justifyContent:"end"
+                }}>
+                                <CloseIcon
                                 fontSize="small"
                                 onClick={() => handleRemoveFromCart(i)}
                               />
                             </Box>
+
+                            </Box>
+
                           </Box>
                         </>
                       )}
