@@ -272,11 +272,13 @@ const Cart = ({ isDrawer }: ICartComponent) => {
                                 <RemoveIcon
                                   fontSize= {isSmallScreen ?"inherit": "small"}
                                   onClick={() => handleDecreaseCart(i)}
+                                  sx={{marginTop:`${isSmallScreen ?"2px":null }`}}
                                 />{" "}
                                 {i.itemQuantity}
                                 <AddIcon
                                   fontSize={isSmallScreen ?"inherit": "small"}
                                   onClick={() => handleAddToCart(i)}
+                                  sx={{marginTop:`${isSmallScreen ?"2px":null }`}}
                                 />
                               </Box>
                            
