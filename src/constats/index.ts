@@ -1,1 +1,0 @@
-export const onlyPositiveNumbers = /^[1-9]\d*$/;

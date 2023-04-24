@@ -8,6 +8,7 @@ import ParalaxSecond from "../../../images/secondParalax.png";
 const SectionFour = () => {
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+  
   return (
     <Box sx={{
       position: "relative",

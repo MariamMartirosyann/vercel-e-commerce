@@ -4,8 +4,6 @@ import Cart from "../pages/cart";
 import Home from "../pages/home";
 import Shop from "../pages/shop";
 import ShopItem from "../pages/shopItem";
-
-
 import { ERoutes } from "./constants";
 
 const MainRoutes = [

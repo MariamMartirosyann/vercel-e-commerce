@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -33,6 +33,7 @@ const navItems = [
 ];
 
 export default function DrawerAppBar(props: Props) {
+  const navigate = useNavigate();
   const { window } = props;
   const cartItemsData = useSelector(selectCartItems);
 
@@ -42,6 +43,10 @@ export default function DrawerAppBar(props: Props) {
     setMobileOpen((prevState) => !prevState);
   };
 
+  const navigateToHomePage = () => {
+    return navigate("/");
+  };
+  
   const totalQuantity = useMemo(() => {
     const quantity = cartItemsData.map((i: ICartItem) => {
       return i.itemQuantity;
@@ -53,7 +58,7 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2 }} onClick={navigateToHomePage}>
         EZ
       </Typography>
       <Divider />
@@ -83,6 +88,8 @@ export default function DrawerAppBar(props: Props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -93,7 +100,7 @@ export default function DrawerAppBar(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -116,6 +123,7 @@ export default function DrawerAppBar(props: Props) {
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              onClick={navigateToHomePage}
             >
               {" "}
               EZ

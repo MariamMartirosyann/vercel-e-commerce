@@ -57,6 +57,7 @@ const textItems = [
   },
 ];
 const SectionTwo = () => {
+  
   const classes = useStyles();
 
   const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });

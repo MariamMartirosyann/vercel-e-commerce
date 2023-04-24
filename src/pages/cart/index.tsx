@@ -24,6 +24,7 @@ interface ICartComponent {
 }
 
 const Cart = ({ isDrawer }: ICartComponent) => {
+  
   const navigate = useNavigate();
   const cartItemsData = useSelector(selectCartItems);
 

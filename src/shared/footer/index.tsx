@@ -10,35 +10,7 @@ import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import SubscriptionsRoundedIcon from "@mui/icons-material/SubscriptionsRounded";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { makeStyles } from "@mui/styles";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
-
-const useStyles: any = makeStyles({
-  // btn: {
-  //   marginTop: "10%",
-  //   background: "primary",
-  //   color: "white",
-  //   width: "45%",
-  // },
-  subscrption: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  lastPart: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    textAlign: "center",
-    fontSize: "8px",
-    color: "grey",
-  },
-  icons: {
-    display: "flex",
-    flexDirection: "row",
-    color: "grey",
-  },
-});
 
 interface IFooterIcon {
   id: number;
@@ -55,7 +27,6 @@ const footerIcons: IFooterIcon[] = [
 ];
 
 const Footer = () => {
-  const classes = useStyles();
   return (
     <Box p="5% 10%">
       <Grid container spacing={5}>
@@ -63,13 +34,19 @@ const Footer = () => {
           <Typography variant="h6" component="div">
             ABOUT US
           </Typography>
-          <Typography variant="body1" component="div"  mt={3} mb={3}>
+          <Typography variant="body1" component="div" mt={3} mb={3}>
             I'm a paragraph. Click here to add your own text and edit me. It’s
             easy. Just click “Edit Text” or double click me to add your own
             content and make changes to the font. Feel free to drag and drop me
             anywhere.
           </Typography>
-          <Box className={classes.icons}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              color: "grey",
+            }}
+          >
             {footerIcons.map((i: IFooterIcon) => (
               <Box mr={1.5} key={i.id}>
                 {<i.icon fontSize="small" />}
@@ -81,7 +58,7 @@ const Footer = () => {
           <Typography variant="h6" component="div">
             NEW RELEASES
           </Typography>
-          <Typography variant="body1" component="div"  mt={3} mb={3}>
+          <Typography variant="body1" component="div" mt={3} mb={3}>
             I'm a paragraph. Click here to add your own text and edit me. It’s
             easy. Just click “Edit Text” or double click me to add your own
             content and make changes to the font.
@@ -110,18 +87,27 @@ const Footer = () => {
           </Box>
           <Button
             variant="contained"
-           // className={classes.btn}
             fullWidth
-            style={{
+            sx={{
               background: "#44DBBD",
               color: "white",
-            
             }}
           >
             Subscription Now
           </Button>
         </Grid>
-        <Box className={classes.lastPart} mt={5}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            textAlign: "center",
+            fontSize: "8px",
+            color: "grey",
+          }}
+          mt={5}
+        >
           © 2035 BY EZ ELECTRONICS. Powered and secured by Wix
         </Box>
       </Grid>

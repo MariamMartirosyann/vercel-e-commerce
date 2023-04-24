@@ -1,6 +1,7 @@
 import { useMediaQuery } from "react-responsive";
-import { Typography, Button, Grid} from "@mui/material";
+import { useNavigate } from "react-router";
 import { makeStyles } from "@mui/styles";
+import { Typography, Button, Grid} from "@mui/material";
 import Banner from "../../../images/banner.webp";
 
 const useStyles: any = makeStyles({
@@ -14,11 +15,17 @@ const useStyles: any = makeStyles({
 });
 
 const SectionOne = () => {
+  
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const isBigScreen = useMediaQuery({ query: "(min-width: 1400px)" });
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1050px)" });
   const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
+
+  const navigateToShop = () => {
+    return navigate("/shop");
+  };
 
   return (
     <Grid container spacing={2} mt={2}>
@@ -75,6 +82,7 @@ const SectionOne = () => {
             background: "primary",
             width: `${isBigScreen ? "45%" : "60%"}`,
           }}
+          onClick={navigateToShop}
         >
           BUY NOW
         </Button>

@@ -1,16 +1,9 @@
 import { useMediaQuery } from "react-responsive";
-import AnimatedImg from "../../../images/3.webp";
-import { makeStyles } from "@mui/styles";
 import { Animate, AnimateGroup } from "react-simple-animate";
+import AnimatedImg from "../../../images/3.webp";
 import { Box, Typography, Grid, Divider } from "@mui/material";
 import LensIcon from "@mui/icons-material/Lens";
 
-const useStyles: any = makeStyles({
-  row: {
-    display: "flex",
-    flexDirection: "row",
-  },
-});
 
 interface IFeature {
   id: number;
@@ -26,8 +19,9 @@ const features: IFeature[] = [
 ];
 
 const SectionFive = () => {
-  const classes = useStyles();
+ 
   const isMediumScreen = useMediaQuery({ query: "(max-width: 900px)" });
+
   return (
     <>
       {isMediumScreen ? (

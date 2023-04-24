@@ -11,6 +11,7 @@ import Cart from "../cart";
 import { addToCart } from "../../app/redux/slices/cartSlice";
 
 const Shop = () => {
+  
   const dispatch = useDispatch();
 
   const [hoveredCart, setHoveredCart] = useState<number>(-1);

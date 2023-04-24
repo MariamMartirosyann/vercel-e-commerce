@@ -1,21 +1,7 @@
 import { ReactNode } from "react";
+import { useMediaQuery } from "react-responsive";
 import { Box, Drawer, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { makeStyles } from "@mui/styles";
-import { useMediaQuery } from "react-responsive";
-
-const useStyles: any = makeStyles({
-  cartNavbar: {
-    width: "100%",
-    background: "black",
-    color: "white",
-    display: "flex",
-    justifyContent: "space-between",
-    height: "100px",
-    padding: "6% 4% ",
-  },
-    
-});
 
 export interface IRightDrawerProps {
   open: boolean;
@@ -25,7 +11,6 @@ export interface IRightDrawerProps {
   onClose?: () => void;
 }
 
-
 const RightDrawer = ({
   open,
   setOpen,
@@ -33,7 +18,6 @@ const RightDrawer = ({
   onClose,
   children,
 }: IRightDrawerProps) => {
-  const classes = useStyles();
   const handleClose = () => {
     setOpen(false);
     onClose?.();
@@ -45,18 +29,27 @@ const RightDrawer = ({
   const SIDEBAR_WIDTH_SMALL = 350;
   return (
     <Drawer anchor={"right"} open={open} onClose={handleClose}>
-      <Box width={isSmallScreen ?SIDEBAR_WIDTH_SMALL:SIDEBAR_WIDTH}>
-        <Box mb={4} className={classes.cartNavbar}>
-          <Typography variant="h6" ml="50%">{title}</Typography>
+      <Box width={isSmallScreen ? SIDEBAR_WIDTH_SMALL : SIDEBAR_WIDTH}>
+        <Box
+          mb={4}
+          sx={{
+            width: "100%",
+            background: "black",
+            color: "white",
+            display: "flex",
+            justifyContent: "space-between",
+            height: "100px",
+            padding: "6% 4% ",
+          }}
+        >
+          <Typography variant="h6" ml="50%">
+            {title}
+          </Typography>
           <Box sx={{ cursor: "pointer" }}>
             <CloseIcon onClick={handleClose} />
           </Box>
         </Box>
         {children}
-        
-        <Box>  
-         
-        </Box>
       </Box>
     </Drawer>
   );

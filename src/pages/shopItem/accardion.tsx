@@ -1,9 +1,11 @@
+import { useState } from "react";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Accordion } from "@mui/material";
-import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+
 
 interface IAccardionData {
   id: string;
@@ -34,6 +36,9 @@ const AccardionData:IAccardionData[] = [
   },
 ];
 const ItemAccordion: any = () => {
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+
   const [expanded, setExpanded] = useState<string | false>("panel1");
 
   const handleChange =
@@ -58,7 +63,7 @@ const ItemAccordion: any = () => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>{i.title}</Typography>
+          <Typography variant={isSmallScreen ? "body2" :"body1"}>{i.title}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography variant="body2">
